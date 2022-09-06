@@ -18,8 +18,13 @@ class Board:
             raise TypeError(f"size={size} should be int, it's {type(size)} instead")
         if size not in (3, 4, 5):
             raise ValueError(f"size={size} should be 3, 4 or 5")
-        self.board = [[Cell()] * size] * size
+        # self.board = [[Cell()] * size] * size
         self.size = size
+        self.board = list()
+        for y in range(self.size):
+            self.board.append(list())
+            for x in range(self.size):
+                self.board[y].append(Cell())
 
     def __str__(self) -> str:
         """
@@ -54,8 +59,12 @@ class Board:
         :param y: int, [0, (self.size - 1)] Y coordinate of the cell
         :return: Cell object
         """
+        if not isinstance(x, int):
+            raise TypeError(f"x={x} should be int, it's {type(x)} instead")
         if not (0 <= x < self.size):
             raise ValueError(f"x={x} should be from 0 to {self.size - 1}")
+        if not isinstance(y, int):
+            raise TypeError(f"x={y} should be int, it's {type(y)} instead")
         if not (0 <= y < self.size):
             raise ValueError(f"y={y} should be from 0 to {self.size - 1}")
         return self.board[y][x]
@@ -68,6 +77,8 @@ class Board:
         :raises IsOccupied: if the Cell is not empty
         :return: None
         """
+        if not isinstance(coord, tuple):
+            raise TypeError(f"coord={coord} should be tuple, it's {type(coord)} instead")
         if not (0 <= coord[0] < self.size):
             raise ValueError(f"coord[0]={coord[0]} should be from 0 to {self.size - 1}")
         if not (0 <= coord[1] < self.size):
@@ -77,7 +88,7 @@ class Board:
         if not self.board[coord[1]][coord[0]].is_occupied():
             self.board[coord[1]][coord[0]].occupy(fill_mark)
         else:
-            raise IsOccupied(f"The Cell at {coord} is occupied with {self.board[coor[1]][coord[0]]}")
+            raise IsOccupied(f"The Cell at {coord} is occupied with {self.board[coord[1]][coord[0]]}")
 
     def is_filled(self) -> bool:
         """
