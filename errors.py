@@ -1,0 +1,2 @@
+class IsOccupied(Exception):
+    pass
