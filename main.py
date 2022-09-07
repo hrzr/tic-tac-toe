@@ -14,17 +14,15 @@ def main():
     if input("Do you want the first player to be the AI? (y/n) ").lower().startswith('y'):
         player1 = Computer(fill_mark='X', board=board)
     else:
-        player1 = Player(name=input("Player 1, enter your name: "), fill_mark='O', board=board)
+        player1 = Player(name=input("Player 1, enter your name: "), fill_mark='X', board=board)
     if input("Do you want the second player to be the AI? (y/n) ").lower().startswith('y'):
-        player2 = Computer(fill_mark='X', board=board)
+        player2 = Computer(fill_mark='O', board=board)
     else:
         player2 = Player(name=input("Player 2, enter your name: "), fill_mark='O', board=board)
     is_player1 = True
     while not (board.is_filled() or player1.does_win() or player2.does_win()):
         player = player1 if is_player1 else player2
         print(board)
-        print(f"player1.does_win(): {player1.does_win()}")
-        print(f"player2.does_win(): {player2.does_win()}")
         while True:
             try:
                 if not isinstance(player, Computer):
