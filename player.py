@@ -19,8 +19,8 @@ class Player:
             raise TypeError(f"name={name} should be str, it's {type(name)} instead")
         if not isinstance(fill_mark, str):
             raise TypeError(f"fill_mark={fill_mark} should be str, it's {type(fill_mark)} instead")
-        if fill_mark not in ('X', 'Y'):
-            raise ValueError(f"fill_mark={fill_mark}, it should be either 'X' or 'Y'")
+        if fill_mark not in ('X', 'O'):
+            raise ValueError(f"fill_mark={fill_mark}, it should be either 'X' or 'O'")
         if not isinstance(board, Board):
             raise TypeError(f"board={board} should be Board, it's {type(board)} instead")
         self.name = name
@@ -51,7 +51,7 @@ class Player:
 
     def does_win(self) -> bool:
         """
-        Returns if that player wins.
+        Returns if the player wins.
 
         :return: bool, stat of winning at the moment
         """
@@ -61,12 +61,12 @@ class Player:
                 return True
         for x in range(self.board.size):
             # if one of the vertical has same contents
-            if all(self.board.board[y][x] == self.fill_mark for y in range(self.board.size)):
+            if all(self.board.get_cell(x, y).contents == self.fill_mark for y in range(self.board.size)):
                 return True
-        if all(self.board.get_cell(i, i) == self.fill_mark for i in range(self.board.size)):
+        if all(self.board.get_cell(i, i).contents == self.fill_mark for i in range(self.board.size)):
             # if top to bottom diagonal has same contents
             return True
-        if all(self.board.get_cell(i, (self.board.size - 1) - i) == self.fill_mark for i in range(self.board.size)):
+        if all(self.board.get_cell(i, self.board.size - 1 - i).contents == self.fill_mark for i in range(self.board.size)):
             # if bottom to top diagonal has same contents
             return True
         return False

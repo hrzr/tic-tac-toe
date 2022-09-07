@@ -32,15 +32,21 @@ class Board:
 
         :return: str
         """
-        r = str()
+        r = " "
+        for x_count, x in enumerate(self.board[0]):
+            if x_count == self.size - 1:
+                r += f" {x_count}\n"
+            else:
+                r += f" {x_count}  "
         for y_count, y in enumerate(self.board):
+            r += f"{y_count}"
             for x, contents in enumerate(y):
                 if x == self.size - 1:
                     r += f" {contents}\n"
                 else:
                     r += f" {contents} |"
             if y_count != self.size - 1:
-                r += f"{'-' * (4 * self.size - 1)}\n"
+                r += f" {'-' * (4 * self.size - 1)}\n"
         return r
 
     def __repr__(self) -> str:
@@ -83,8 +89,8 @@ class Board:
             raise ValueError(f"coord[0]={coord[0]} should be from 0 to {self.size - 1}")
         if not (0 <= coord[1] < self.size):
             raise ValueError(f"coord[1]={coord[1]} should be from 0 to {self.size - 1}")
-        if fill_mark not in ('X', 'Y'):
-            raise ValueError(f"fill_mark={fill_mark} should be either 'X' or 'Y'")
+        if fill_mark not in ('X', 'O'):
+            raise ValueError(f"fill_mark={fill_mark} should be either 'X' or 'O'")
         if not self.board[coord[1]][coord[0]].is_occupied():
             self.board[coord[1]][coord[0]].occupy(fill_mark)
         else:

@@ -29,9 +29,9 @@ class Cell:
         """
         Represents a Cell as a class string.
 
-        :return: str, that contains ' ', 'X' or 'Y'
+        :return: str, that contains ' ', 'X' or 'O'
         """
-        return f"{self.__class__.__name__}(num={self.num})"
+        return f"{self.__class__.__name__}(num={self.num}, contents='{self.contents}')"
 
     def is_occupied(self) -> bool:
         """
@@ -48,8 +48,8 @@ class Cell:
         :param fill: str, 'X' or 'Y', raises ValueError if it's something else
         :return: None
         """
-        if fill not in ('X', 'Y'):
-            raise ValueError(f"fill={fill} should be either 'X' or 'Y'")
+        if fill not in ('X', 'O'):
+            raise ValueError(f"fill={fill} should be either 'X' or 'O'")
         if not self.is_occupied():
             self.contents = fill
         else:
