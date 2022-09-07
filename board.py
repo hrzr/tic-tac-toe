@@ -89,9 +89,9 @@ class Board:
             raise ValueError(f"coord[0]={coord[0]} should be from 0 to {self.size - 1}")
         if not (0 <= coord[1] < self.size):
             raise ValueError(f"coord[1]={coord[1]} should be from 0 to {self.size - 1}")
-        if fill_mark not in ('X', 'O'):
-            raise ValueError(f"fill_mark={fill_mark} should be either 'X' or 'O'")
-        if not self.board[coord[1]][coord[0]].is_occupied():
+        if fill_mark not in ('X', 'O', ' '):
+            raise ValueError(f"fill_mark={fill_mark} should be either 'X', 'O' or ' '")
+        if not self.get_cell(coord[0], coord[1]).is_occupied():
             self.board[coord[1]][coord[0]].occupy(fill_mark)
         else:
             raise IsOccupied(f"The Cell at {coord} is occupied with {self.board[coord[1]][coord[0]]}")
@@ -120,4 +120,4 @@ class Board:
             raise ValueError(f"x={x} should be from 0 to {self.size - 1}")
         if not (0 <= y < self.size):
             raise ValueError(f"y={y} should be from 0 to {self.size - 1}")
-        return self.board[y][x].is_occupied()
+        return self.get_cell(x, y).is_occupied()

@@ -31,18 +31,25 @@ class Computer(Player):
         return False
 
     def __get_dangerous_coords(self):
-        choose_from = list()
-        for y_counter, y in enumerate(self.board.board):
-            for x_counter, x in enumerate(y):
-                if self.board.get_cell(x, y).contents == ' ':
-                    self.board.set_cell((x, y), self.fill_mark)
-                    choose_from.append((x, y))
-                    if self.__check_win_on_any_board(self.board, self.fill_mark):
-                        self.board.set_cell((x, y), ' ')
+        another_mark = 'O' if self.fill_mark == 'X' else 'X'
+        for y in range(self.board.size):
+            for x in range(self.board.size):
+                if not self.board.get_cell(x, y).is_occupied():
+                    self.board.set_cell((x, y), another_mark)
+                    if self.__check_win_on_any_board(self.board, another_mark):
+                        self.board.board[y][x].contents = ' '
                         return x, y
                     else:
-                        self.board.set_cell((x, y), ' ')
+                        self.board.board[y][x].contents = ' '
         return None, None
+
+    def __get_available(self):
+        res = list()
+        for y in range(self.board.size):
+            for x in range(self.board.size):
+                if not self.board.is_occupied(x, y):
+                    res.append((x, y))
+        return res
 
     def put(self, x=None, y=None) -> None:
         """
@@ -53,12 +60,13 @@ class Computer(Player):
         :return: None
         """
         if x is None and y is None:
-            if self.fill_mark == 'X':
-                if not self.board.is_occupied(self.board.size // 2, self.board.size // 2):
+            x, y = self.__get_dangerous_coords()
+            if x is None and y is None:
+                if not self.board.get_cell(self.board.size // 2, self.board.size // 2).is_occupied():
                     self.board.set_cell((self.board.size // 2, self.board.size // 2), self.fill_mark)
                 else:
-                    pass
+                    self.board.set_cell(random.choice(self.__get_available()), self.fill_mark)
             else:
-                pass
+                self.board.set_cell((x, y), self.fill_mark)
         else:
             raise ValueError(f"{x} and {y} should stay None")

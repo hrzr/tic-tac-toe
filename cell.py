@@ -48,8 +48,8 @@ class Cell:
         :param fill: str, 'X' or 'Y', raises ValueError if it's something else
         :return: None
         """
-        if fill not in ('X', 'O'):
-            raise ValueError(f"fill={fill} should be either 'X' or 'O'")
+        if fill not in ('X', 'O', ' '):
+            raise ValueError(f"fill={fill} should be either 'X', 'O' or ' '")
         if not self.is_occupied():
             self.contents = fill
         else:

@@ -19,8 +19,8 @@ class Player:
             raise TypeError(f"name={name} should be str, it's {type(name)} instead")
         if not isinstance(fill_mark, str):
             raise TypeError(f"fill_mark={fill_mark} should be str, it's {type(fill_mark)} instead")
-        if fill_mark not in ('X', 'O'):
-            raise ValueError(f"fill_mark={fill_mark}, it should be either 'X' or 'O'")
+        if fill_mark not in ('X', 'O', ' '):
+            raise ValueError(f"fill_mark={fill_mark}, it should be either 'X', 'O' or ' '")
         if not isinstance(board, Board):
             raise TypeError(f"board={board} should be Board, it's {type(board)} instead")
         self.name = name
