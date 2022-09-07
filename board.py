@@ -79,7 +79,7 @@ class Board:
         Sets a Cell at coord (should be valid coordinate) with fill_mark (should be valid fill mark)
 
         :param coord: tuple of x and y, that represent the space on the board
-        :param fill_mark: str, 'X' or 'Y'
+        :param fill_mark: str, 'X' or 'O'
         :raises IsOccupied: if the Cell is not empty
         :return: None
         """
@@ -89,8 +89,8 @@ class Board:
             raise ValueError(f"coord[0]={coord[0]} should be from 0 to {self.size - 1}")
         if not (0 <= coord[1] < self.size):
             raise ValueError(f"coord[1]={coord[1]} should be from 0 to {self.size - 1}")
-        if fill_mark not in ('X', 'O', ' '):
-            raise ValueError(f"fill_mark={fill_mark} should be either 'X', 'O' or ' '")
+        if fill_mark not in ('X', 'O'):
+            raise ValueError(f"fill_mark={fill_mark} should be either 'X', 'O'")
         if not self.get_cell(coord[0], coord[1]).is_occupied():
             self.board[coord[1]][coord[0]].occupy(fill_mark)
         else:
