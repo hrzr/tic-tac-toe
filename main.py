@@ -11,7 +11,10 @@ def main():
             break
         except ValueError:
             print("The input should be int that equals to 3, 4 or 5")
-    player1 = Player(name=input("Player 1, enter your name: "), fill_mark='X', board=board)
+    if input("Do you want the first player to be the AI? (y/n) ").lower().startswith('y'):
+        player1 = Computer(fill_mark='X', board=board)
+    else:
+        player1 = Player(name=input("Player 1, enter your name: "), fill_mark='O', board=board)
     if input("Do you want the second player to be the AI? (y/n) ").lower().startswith('y'):
         player2 = Computer(fill_mark='X', board=board)
     else:
