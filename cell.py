@@ -15,7 +15,7 @@ class Cell:
         """
         self.num = Cell.number
         Cell.number += 1
-        self.contents = ' '  # is should be, i.e. str(num)
+        self.contents = ' '
 
     def __str__(self) -> str:
         """

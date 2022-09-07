@@ -1,6 +1,7 @@
 from player import Player
 from board import Board
 import random
+from typing import Tuple, List
 
 
 class Computer(Player):
@@ -9,11 +10,24 @@ class Computer(Player):
     """
 
     def __init__(self, fill_mark: str, board: Board) -> None:
+        """
+        Initialize the instance with super() of the Player class, but give a default name
+
+        :param fill_mark: str, 'X' or 'O'
+        :param board: Board, the board the players play on
+        """
         super().__init__(name="DeepBlueTTT", fill_mark=fill_mark, board=board)
         # which stays for "DeepBlue Tic-Tac-Toe"
 
     @staticmethod
     def __check_win_on_any_board(board: Board, fill_mark: str) -> bool:
+        """
+        A method that checks any board with any fill_mark.
+
+        :param board: Board, the board we are checking
+        :param fill_mark: str, the fill mark we are checking
+        :return:
+        """
         for y in board.board:
             # if one of the all horizontal has same contents
             if all(cell.contents == fill_mark for cell in y):
@@ -30,7 +44,12 @@ class Computer(Player):
             return True
         return False
 
-    def __get_dangerous_coords(self):
+    def __get_dangerous_coords(self):  # do not know how to annotate that yet
+        """
+        Calculate coordinates of the points, that will instantly result in another player's winning.
+
+        :return: Tuple[int, int] or Tuple[None, None] (if there are no dangerous points at the board)
+        """
         another_mark = 'O' if self.fill_mark == 'X' else 'X'
         for y in range(self.board.size):
             for x in range(self.board.size):
@@ -43,7 +62,12 @@ class Computer(Player):
                         self.board.board[y][x].contents = ' '
         return None, None
 
-    def __get_available(self):
+    def __get_available(self) -> List[Tuple[int, int]]:
+        """
+        Gets all empty coordinates in a list of tuples.
+
+        :return:
+        """
         res = list()
         for y in range(self.board.size):
             for x in range(self.board.size):

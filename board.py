@@ -18,7 +18,6 @@ class Board:
             raise TypeError(f"size={size} should be int, it's {type(size)} instead")
         if size not in (3, 4, 5):
             raise ValueError(f"size={size} should be 3, 4 or 5")
-        # self.board = [[Cell()] * size] * size
         self.size = size
         self.board = list()
         for y in range(self.size):
@@ -78,6 +77,7 @@ class Board:
     def set_cell(self, coord: Tuple[int, int], fill_mark: str) -> None:
         """
         Sets a Cell at coord (should be valid coordinate) with fill_mark (should be valid fill mark)
+
         :param coord: tuple of x and y, that represent the space on the board
         :param fill_mark: str, 'X' or 'Y'
         :raises IsOccupied: if the Cell is not empty
